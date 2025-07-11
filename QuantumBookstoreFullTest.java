@@ -26,7 +26,7 @@ public class QuantumBookstoreFullTest {
 
         EBook eBook2 = new EBook(
                 "456-789", "Java Concurrency in Practice", "Brian Goetz", 34.99, 2006,
-                "EPUB", noShipping, emailSending
+                "PDF", noShipping, emailSending
         );
 
         DemoBook demoBook = new DemoBook(
@@ -47,7 +47,7 @@ public class QuantumBookstoreFullTest {
         System.out.println("Paid: $" + amount);
 
         // Test 2: Buy out-of-stock paper book (shouldn't be bought nor shipped)
-        System.out.println("\n=== Buying Design Patterns (out of stock) ===");
+        System.out.println("\n=== Buying Design Patterns (paper) ===");
         try {
             amount = inventory.buyBook("789-012", 1, "customer2@example.com", "456 Main St");
             System.out.println("Paid: $" + amount);
