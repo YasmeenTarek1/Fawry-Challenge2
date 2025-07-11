@@ -43,20 +43,25 @@ public class Inventory {
             return 0.0;
         }
 
-        books.get(ISBN).decreaseQuantity(quantity);
-        double paidAmount = books.get(ISBN).getBook().getPrice() * quantity;
+        try {
+            books.get(ISBN).decreaseQuantity(quantity);
+            double paidAmount = books.get(ISBN).getBook().getPrice() * quantity;
 
-        Book book = books.get(ISBN).getBook();
+            Book book = books.get(ISBN).getBook();
 
-        // Send book to ShippingService with the address provided (ShippingService will handle all shipping logic including if the book is not shippable)
-        ShippingService shippingService = new ShippingService();
-        shippingService.ship(book, address);
+            // Send book to ShippingService with the address provided (ShippingService will handle all shipping logic including if the book is not shippable)
+            ShippingService shippingService = new ShippingService();
+            shippingService.ship(book, address);
 
-        // Send to MailService with the email provided (MailService will handle all shipping logic including if the book is not shippable)
-        MailService mailService = new MailService();
-        mailService.sendByEmail(book, email);
+            // Send to MailService with the email provided (MailService will handle all shipping logic including if the book is not shippable)
+            MailService mailService = new MailService();
+            mailService.sendByEmail(book, email);
 
-        return paidAmount;
+            return paidAmount;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Not enough stock available for this book.");
+            return 0.0;
+        }
     }
 
     public void displayInventory() {
